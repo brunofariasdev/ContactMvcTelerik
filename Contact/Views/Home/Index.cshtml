@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Contact.Models.ContactModel>
+@{
+    ViewData["Title"] = "Listagem de Contatos";
+}
+
+<div>
+    <h3 class="text-black-50">Listagem de Contatos!</h3>
+    @(Html.Kendo().Grid(Model)
+        .Name("home")
+        .Columns(columns => {
+            columns.Bound(p => p.Id).Width(80);
+            columns.Bound(p => p.Name);
+            columns.Bound(p => p.Email);
+            columns.Bound(p => p.Phone);
+            columns.Command(command => {command.Edit(); command.Destroy();}).Width(250);
+        })
+        .ToolBar(toobar => toobar.Create())
+        .Editable(editable => editable.Mode(GridEditMode.PopUp))
+        .DataSource(datasource => datasource
+            .Ajax()
+            .PageSize(20)
+            .ServerOperation(false)
+            .Create(data => data.Action("Create","Home"))
+            .Destroy(data => data.Action("Delete", "Home"))
+        )
+    )
+</div>
