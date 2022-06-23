@@ -40,12 +40,20 @@ namespace Contact.Controllers
         {
             return View();
         }
+        public void Delete(ContactModel contact)
+        {
+            _contactRepository.Delete(contact);
+        }
+
+        public void Update(ContactModel contact)
+        {
+            _contactRepository.Update(contact);
+        }
 
         [HttpPost]
-        public IActionResult Create(ContactModel contact)
+        public void Create(ContactModel contact)
         {
             _contactRepository.Add(contact);
-            return Json(new[] { contact });
         }
 
         [HttpGet]
@@ -55,6 +63,6 @@ namespace Contact.Controllers
             return Json(contacts);
         }
 
-        
+
     }
 }
